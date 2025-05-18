@@ -20,7 +20,7 @@ const Content = ({ anime, itemFilter }) => {
   const [ingredientStatus, setIngredientStatus] = useState("");
   const [genre, setGenre] = useState([]);
   const [status, setStatus] = useState([]);
-  const [genreChoice, setGenreChoice] = useState("");
+  const [genreChoice, setGenreChoice] = useState("semua");
   const [statusChoice, setStatusChoice] = useState("");
   const [visibleDialog, setVisibleDialog] = useState(false);
   const [timeNow, setTImeNow] = useState("");
@@ -337,11 +337,9 @@ const Content = ({ anime, itemFilter }) => {
     >
       <Dialog
         header={selectedAnime.judul}
-        className="w-[92%] sm:w-[80vw] md:w-[65vw] xs:w-[94%] lg:w-[50vw]"
+        className="custom-dialog w-[92%] sm:w-[80vw] md:w-[65vw] xs:w-[94%] lg:w-[50vw]"
         visible={visibleDialog}
         onHide={() => setVisibleDialog(!visibleDialog)}
-        style={{ width: "50vw", maxwidth: "600px" }}
-        className="custom-dialog"
       >
         {selectedAnime.length !== 0 ? contentDialog() : ""}
       </Dialog>
