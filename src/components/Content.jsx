@@ -116,7 +116,11 @@ const Content = ({ anime, itemFilter }) => {
         (item) => item !== komen
       );
       setSelectedAnime({ ...selectedAnime, komentar: updateKomentar });
-      toast.current.show({severity: "success", summary: "Komentar dihapus", detail: "Komentar berhasil dihapus!"});
+      toast.current.show({
+        severity: "success",
+        summary: "Komentar dihapus",
+        detail: "Komentar berhasil dihapus!",
+      });
     } else {
       toast.current.show({
         severity: "error",
@@ -218,14 +222,14 @@ const Content = ({ anime, itemFilter }) => {
                         </span>
 
                         {/* Tombol hapus */}
-                        {localStorage.getItem('status_login_fake') && (
-                                <button
-                                onClick={() => handleDeleteComment(komen)}
-                                className="text-red-500 hover:text-red-700"
-                                title="Hapus komentar"
-                                >
-                                <i className="fas fa-trash"></i>
-                                </button>
+                        {localStorage.getItem("status_login_fake") && (
+                          <button
+                            onClick={() => handleDeleteComment(komen)}
+                            className="text-red-500 hover:text-red-700"
+                            title="Hapus komentar"
+                          >
+                            <i className="fas fa-trash"></i>
+                          </button>
                         )}
                       </p>
                       <p className="mt-2"> {komen.komen} </p>
