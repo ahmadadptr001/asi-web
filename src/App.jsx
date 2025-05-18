@@ -14,8 +14,8 @@ export  default function  App() {
         <Router>
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="*" element={<Error404 />} />
               <Route path="/dashboard-admin" element={<Dashboard />} />
+              <Route path="*" element={<Error404 />} />
             </Routes>
         </Router>
   )

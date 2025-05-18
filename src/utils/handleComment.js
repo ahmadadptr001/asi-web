@@ -1,5 +1,5 @@
 import { db } from "../config/firebase-config";
-import {  doc, updateDoc, arrayUnion } from "firebase/firestore";
+import {  doc, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
 
 export const addComment = async (anime, newComment, newTime) => {
         try {
@@ -8,6 +8,12 @@ export const addComment = async (anime, newComment, newTime) => {
                 
                 let dataComment = {};
                 console.log(localStorage.getItem('status_login_fake'));
+
+                // Validasi input
+                if (newComment === "") {
+                        return;
+                }
+
                 if (localStorage.getItem('status_login_fake') === 'true'){
                         dataComment = {
                                 nama: 'Admin',
@@ -30,5 +36,19 @@ export const addComment = async (anime, newComment, newTime) => {
         } catch (err) {
                 return { status_comment: false, message:err.message }
                 
+        }
+}
+
+export const deleteComment = async (anime, commentToDelete) => {
+        try {
+                const snapshootAnimeID = doc(db, "asi_web", "semua_data", "anime", anime.id);
+
+                await updateDoc(snapshootAnimeID, {
+                        komentar: arrayRemove(commentToDelete)
+                });
+
+                return { status_comment: true, message: "Komentar berhasil dihapus!" }
+        } catch (e) {
+                return { status_comment: false, message: e.message }
         }
 }

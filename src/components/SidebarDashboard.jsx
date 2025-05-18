@@ -212,23 +212,37 @@ const SidebarDashboard = () => {
                 setGenreList(prev => ({...prev, genre: prev.genre.filter(item => item !== nameGenre) }))
         }
         const addGenreListPreview = () => {
-                setGenreList(prev => ({...prev, genre: [...prev.genre, addInputGenre]}))
+                const inputGenre = addInputGenre.trim();
+                // Mencegah duplikasi data
+                if (genreList.genre.some(item => item.toLowerCase() === inputGenre.toLowerCase())) {
+                        toast.current.show({severity: "warn", summary: `Genre "${inputGenre}" tidak sah`, detail: "Anda melakukan duplikasi genre!"});
+                        return
+                }
+                setGenreList(prev => ({...prev, genre: [...prev.genre, inputGenre]}))
+                setAddInputGenre(""); // Clear input
         }
         const removeStatusListPreview = (nameStatus) => {
                 setStatusList(prev => ({...prev, status: prev.status.filter(item => item !== nameStatus) }))
         }
         const addStatusListPreview = () => {
-                setStatusList(prev => ({...prev, status: [...prev.status, addInputStatus]}))
+                const inputStatus = addInputStatus.trim();
+                // Mencegah duplikasi data juga
+                if (statusList.status.some(item => item.toLowerCase() === inputStatus.toLowerCase())) {
+                        toast.current.show({severity: "warn", summary: `Status "${inputStatus}" tidak sah`, detail: "Anda melakukan duplikasi status!"});
+                        return
+                }
+                setStatusList(prev => ({...prev, status: [...prev.status, inputStatus]}));
+                setAddInputStatus(""); // Clear input
         }
 
         const sendSGtoFireStore = async() => {
                 const genreRef = doc(db, "asi_web", "genre_choice");
                 const statusRef = doc(db, "asi_web", "status_chocie");
-                
+                console.log(genreList, statusList)
                 try {
                         await updateDoc(genreRef, genreList);
                         await updateDoc(statusRef, statusList);
-                        toast.current.show({severity: "success", sumary: "Operasi sukses", detail: "Berhasil menambahkan item"})
+                        toast.current.show({severity: "success", sumary: "Berhasil!", detail: "Data genre & status berhasil diperbarui!"})
 
                 } catch (err) {
                         toast.current.show({severity: "error", sumary: "Gagal memperbarui data!", detail: err.message})
@@ -282,7 +296,7 @@ const SidebarDashboard = () => {
 
                                                 <Divider className="!my-10"/>
 
-                                                <div className='mt-5'>
+                                                <div className='mt-5'>  
                                                         <span className="dark:text-gray-200">Upload gambar anime</span>
                                                         <div className="pb-2"></div>
                                                         <Tooltip target=".custom-choose-btn" content="Choose" position="bottom" />
@@ -341,14 +355,12 @@ const SidebarDashboard = () => {
 
         const bodyGenre = () => {
                 return (
-                        <div className="p-4 overflow-y-auto max-h-[80dvh]">
+                        <div className="p-4">
                                 <div>
                                         <div className='flex gap-2 flex-wrap mt-2'>
                                                 {genreList.length !== 0 ? (
                                                         <>
-                                                                {genreList.genre
-                                                                .filter(item => item.toLowerCase() !== "semua")
-                                                                .map((item, index) => (
+                                                                {genreList.genre.map((item, index) => (
                                                                                 <div key={index} className="
                                                                                                         relative p-overlay-badge
                                                                                                         cursor-pointer rounded-[50rem] px-3 hover:bg-gray-500/30 dark:text-gray-200

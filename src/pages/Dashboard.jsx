@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Navigasi from "../components/Navigasi";
 import SidebarDashboard from "../components/SidebarDashboard";
 import Error404 from "./Error404";
@@ -21,5 +20,4 @@ const Dashboard = () => {
                 </>
         )
 }
-
 export default Dashboard;
