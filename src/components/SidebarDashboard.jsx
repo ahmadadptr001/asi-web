@@ -170,8 +170,12 @@ const SidebarDashboard = () => {
                                 {
                                         label: "logout",
                                         icon: () => (
-                                                <i className="fas fa-right-from-bracket"></i>
-                                        )
+                                                <i className="fas fa-right-from-bracket text-red-500"></i>
+                                        ),
+                                        command: () => {
+                                                localStorage.removeItem('status_login');
+                                                localStorage.removeItem('status_login_fake');
+                                        }
                                 }
                         ]
                 }

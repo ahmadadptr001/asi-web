@@ -167,7 +167,7 @@ const Content = ({ anime, itemFilter }) => {
                                         <button onClick={() => handleSendComment(selectedAnime)} className="flex justify-center items-center gap-2 w-full text-white p-3 !text-sm rounded-md border-none focus:outline-none bg-blue-500">
                                                 <i className="fas fa-paper-plane"></i> Kirim Komentar
                                         </button>
-                                        <button onClick={() => {window.open(`https://wa.me/0895355541144?text=Pertanyaan tentang anime: ${selectedAnime.judul}`, '_blank')}} className="flex justify-center items-center mt-3 gap-2 w-full text-white p-3 !text-sm rounded-md border-none focus:outline-none bg-green-500">
+                                        <button onClick={() => {window.open(`https://wa.me/+62895355541144?text=Pertanyaan tentang anime: ${selectedAnime.judul}`, '_blank')}} className="flex justify-center items-center mt-3 gap-2 w-full text-white p-3 !text-sm rounded-md border-none focus:outline-none bg-green-500">
                                                 <i className="fab fa-whatsapp"></i> Tanya Admin tentang Anime Ini
                                         </button>
                                 </div>
