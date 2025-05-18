@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { doc, updateDoc } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { db, storage } from '../config/firebase-config';
@@ -27,7 +28,7 @@ import { readAllStatus } from '../utils/handleStatus';
 import { Badge } from 'primereact/badge';
 
 const SidebarDashboard = () => {
-
+        const navigate = useNavigate();
         const data = localStorage.getItem('data_user');
         const pengguna = JSON.parse(data);
 
@@ -175,6 +176,7 @@ const SidebarDashboard = () => {
                                         command: () => {
                                                 localStorage.removeItem('status_login');
                                                 localStorage.removeItem('status_login_fake');
+                                                navigate('/');
                                         }
                                 }
                         ]
