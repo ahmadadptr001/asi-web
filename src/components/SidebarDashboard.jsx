@@ -418,6 +418,9 @@ const SidebarDashboard = () => {
                                                 <div className={`item-dash ${menuActive === "genre" ? "active" : ""}`} onClick={() => setMenuActive('genre')}>
                                                         <i className="fas fa-tags"></i>
                                                 </div>
+                                                <div className="item-dash" onClick={() => navigate('/')}>
+                                                        <i className="fas fa-left-from-bracket"></i>
+                                                </div>
                                                 <Menu className="!gap-2 !w-auto rounde-[50rem] !text-[.8rem]" model={itemsCogUser} popup ref={menuCogUser} id="popup_menu_right" popupAlignment="right" />
                                                 <div onClick={(event) => {menuCogUser.current.toggle(event); console.log(pengguna.username)}} aria-controls="popup_menu_right" aria-haspopup>
                                                         <i className="fas fa-user-gear"></i>
