@@ -31,7 +31,7 @@ const Hero = ({ anime, setAnime, setItemFilter, setVisibleSidebarRight }) => {
 
         const toast = useRef(null);
         const [visibleDialogSearch, setVisibleDialogSearch] = useState(false);
-        const [selectedAnime, setSelectedAnime] = useState(null);
+        const [selectedAnime, setSelectedAnime] = useState('');
         const [filteredAnime, setFilteredAnime] = useState(null);
 
         useEffect(() => {
