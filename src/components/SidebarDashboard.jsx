@@ -217,7 +217,7 @@ const SidebarDashboard = () => {
 
         const sendSGtoFireStore = async() => {
                 const genreRef = doc(db, "asi_web", "genre_choice");
-                const statusRef = doc(db, "asi_web", "status_choice");
+                const statusRef = doc(db, "asi_web", "status_chocie");
                 console.log(genreList, statusList)
                 try {
                         await updateDoc(genreRef, genreList);
