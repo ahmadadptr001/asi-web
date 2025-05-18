@@ -340,62 +340,64 @@ const Content = ({ anime, itemFilter }) => {
         className="w-[92%] sm:w-[80vw] md:w-[65vw] xs:w-[94%] lg:w-[50vw]"
         visible={visibleDialog}
         onHide={() => setVisibleDialog(!visibleDialog)}
+        style={{ width: "50vw", maxwidth: "600px" }}
+        className="custom-dialog"
       >
         {selectedAnime.length !== 0 ? contentDialog() : ""}
       </Dialog>
-      <div className="rounded-md p-3 dark:via-red-400/80 bg-gradient-to-tl from-white/20 via-red-300/80 to-white/20 md:sticky md:top-4 md:h-[90vh]">
-        <p
-          id="genre"
-          className="text-lg font-bold text-gray-700 dark:text-gray-100"
-        >
-          Genre :
+      <div className="genre-status-container rounded-2xl p-5 bg-white/60 dark:bg-glass-dark shadow-lg backdrop-blur-md border border-gray-200 dark:border-glass-border transition-all duration-300 md:sticky md:top-4 md:h-[90vh]">
+        <p className="text-xl font-semibold text-gray-800 dark:text-white mb-3">
+          Genre
         </p>
-        <div className="p-2 flex flex-wrap items-center gap-3 dark:!text-white">
+
+        <div className="flex flex-wrap gap-4">
           {genre.map((item) => (
-            <div className="flex-items-center">
+            <div key={item} className="flex items-center space-x-2">
               <RadioButton
                 inputId={`${item}_`}
                 name="genres"
                 value={item}
                 onChange={handleGenre}
-                checked={ingredientGenre == item}
+                checked={ingredientGenre === item}
               />
-              <label htmlFor={`${item}_`} className="ml-1">
+              <label
+                htmlFor={`${item}_`}
+                className="text-sm text-gray-700 dark:text-gray-200"
+              >
                 {item}
               </label>
             </div>
           ))}
         </div>
 
-        <Divider className="" />
+        <Divider className="my-6" />
 
-        {genreChoice ? (
+        {genreChoice && (
           <>
-            <p
-              id="status"
-              className="text-lg font-bold text-gray-700 dark:text-gray-100"
-            >
-              Status :
+            <p className="text-xl font-semibold text-gray-800 dark:text-white mb-3">
+              Status
             </p>
-            <div className="p-2 flex flex-wrap items-center gap-3 dark:!text-white">
+
+            <div className="flex flex-wrap gap-4">
               {status.map((item) => (
-                <div className="flex-items-center">
+                <div key={item} className="flex items-center space-x-2">
                   <RadioButton
                     inputId={`${item}_`}
                     name="genres"
                     value={item}
                     onChange={handleStatus}
-                    checked={ingredientStatus == item}
+                    checked={ingredientStatus === item}
                   />
-                  <label htmlFor={`${item}_`} className="ml-1">
+                  <label
+                    htmlFor={`${item}_`}
+                    className="text-sm text-gray-700 dark:text-gray-200"
+                  >
                     {item}
                   </label>
                 </div>
               ))}
             </div>
           </>
-        ) : (
-          <></>
         )}
       </div>
 
