@@ -414,77 +414,27 @@ const Content = ({ anime, itemFilter }) => {
           </p>
         ) : (
           <>
-            {genreChoice.toLowerCase() &&
-            genreChoice.toLowerCase() !== "semua" ? (
-              <>
-                {statusChoice ? (
-                  <>
-                    {itemFilter.length !== 0 &&
-                    itemFilter.length !== undefined ? (
-                      <>
-                        {anime
-                          .filter((item) => {
-                            item.judul.toLowerCase() ===
-                              itemFilter.judul.toLowerCase() &&
-                              item.genre.includes(genreChoice) === true &&
-                              item.status.includes(statusChoice) === true;
-                          })
-                          .map((item) => templateCardAnime(item))}
-                      </>
-                    ) : (
-                      <>
-                        {anime
-                          .filter(
-                            (item) =>
-                              item.genre.includes(genreChoice) === true &&
-                              item.status.includes(statusChoice) === true
-                          )
-                          .map((item) => templateCardAnime(item))}
-                      </>
-                    )}
-                  </>
-                ) : (
-                  <>
-                    {itemFilter.length !== 0 &&
-                    itemFilter.length !== undefined ? (
-                      <>
-                        {anime
-                          .filter((item) => {
-                            item.judul.toLowerCase() ===
-                              itemFilter.judul.toLowerCase() &&
-                              item.genre.includes(genreChoice);
-                          })
-                          .map((item) => templateCardAnime(item))}
-                      </>
-                    ) : (
-                      <>
-                        {anime
-                          .filter(
-                            (item) => item.genre.includes(genreChoice) === true
-                          )
-                          .map((item) => templateCardAnime(item))}
-                      </>
-                    )}
-                  </>
-                )}
-              </>
-            ) : (
-              <>
-                {itemFilter.length !== 0 && itemFilter.length !== undefined ? (
-                  <>
-                    {anime
-                      .filter((item) => {
-                        item.judul.toLowerCase() ===
-                          itemFilter.judul.toLowerCase();
-                        console.log(item.judul.toLowerCase());
-                      })
-                      .map((item) => templateCardAnime(item))}
-                  </>
-                ) : (
-                  <>{anime.map((item) => templateCardAnime(item))}</>
-                )}
-              </>
-            )}
+            {anime
+              .filter((item) => {
+                const matchJudul =
+                  itemFilter.length !== 0 && itemFilter !== undefined
+                    ? item.judul.toLowerCase() ===
+                      itemFilter.judul.toLowerCase()
+                    : true;
+
+                const matchGenre =
+                  genreChoice.toLowerCase() !== "semua"
+                    ? item.genre.includes(genreChoice)
+                    : true;
+
+                const matchStatus =
+                  statusChoice !== "" && statusChoice !== undefined
+                    ? item.status.includes(statusChoice)
+                    : true;
+
+                return matchJudul && matchGenre && matchStatus;
+              })
+              .map((item) => templateCardAnime(item))}
           </>
         )}
       </div>
