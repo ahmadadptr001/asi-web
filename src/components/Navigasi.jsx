@@ -5,9 +5,12 @@ import { useNavigate } from "react-router-dom";
 import { FaMoon } from "react-icons/fa";
 import { IoSunny } from "react-icons/io5";
 
+import { getAnnouncement } from "../utils/handleAnnouncement";
+
 const Navigasi = ({ setVisibleSidebarRight }) => {
   const navigate = useNavigate();
-  const [themeDark, setThemeDark] = useState(null); // null dulu, biar tahu kapan udah ke-load
+  const [themeDark, setThemeDark] = useState(null); 
+  const [announcement, setAnnouncement] = useState("");
 
   // Pas pertama load
   useEffect(() => {
@@ -23,6 +26,21 @@ const Navigasi = ({ setVisibleSidebarRight }) => {
     }
   }, []);
 
+  useEffect(() => {
+        const fetchAnnouncements = async () => {
+                const res = await getAnnouncement();
+                console.log("🔥 Announcement Response:", res);
+
+                if (res.status) {
+                        setAnnouncement(`📢 ${res.data.isi} 📨`);
+                } else {
+                        setAnnouncement('📢 Tidak ada pengumuman terbaru.');
+                }
+        }
+
+        fetchAnnouncements();
+  }, []);
+
   // Apply theme ke html + simpan di localStorage
   useEffect(() => {
     if (themeDark === null) return; // Belum siap
@@ -34,7 +52,7 @@ const Navigasi = ({ setVisibleSidebarRight }) => {
   return (
     <>
       <div className="w-full bg-yellow-100 dark:bg-yellow-800 text-yellow-900 dark:text-yellow-100 text-center py-2 px-4 text-sm font-medium shadow-sm sticky top-0 z-50">
-        📢 Pengumuman: Fitur baru telah tersedia! Cek sekarang ya~ ✨
+        {announcement}
       </div>
 
       <header className="flex justify-between py-0 bg-red-300 dark:bg-red-400 items-center px-7">
