@@ -249,14 +249,14 @@ const Content = ({ anime, itemFilter }) => {
                                         </p>
                                 ) : (
                                 <>
-                                        { genreChoice && genreChoice !== 'semua' ? (
+                                        { genreChoice && genreChoice.toLocaleLowerCase() !== 'semua' ? (
                                                 <>
                                                         { statusChoice ? (
                                                                 <>
-                                                                        { itemFilter.length !== 0 && itemFilter.length !== undefined ? (
+                                                                        { (itemFilter.length !== 0 && itemFilter.length !== undefined) || typeof itemFilter.judul === 'string' ? (
                                                                                 <>
                                                                                         { anime
-                                                                                        .filter( (item) => {item.judul.toLowerCase() === itemFilter.judul.toLowerCase() && (item.genre).includes(genreChoice) === true && (item.status).includes(statusChoice) === true})
+                                                                                        .filter( (item) => {return item.judul.toLowerCase() === itemFilter.judul.toLowerCase() || ((item.genre).includes(genreChoice) === true && (item.status).includes(statusChoice) === true)})
                                                                                         .map( (item) => (
                                                                                                 templateCardAnime(item)
                                                                                         )) }
@@ -264,7 +264,7 @@ const Content = ({ anime, itemFilter }) => {
                                                                         ) : 
                                                                         <>
                                                                                 { anime
-                                                                                .filter((item) => (item.genre).includes(genreChoice) === true && (item.status).includes(statusChoice) === true)
+                                                                                .filter((item) => (item.genre).includes(genreChoice) === true || (item.status).includes(statusChoice) === true)
                                                                                 .map((item) => (
                                                                                         templateCardAnime(item)
                                                                                 )) }
@@ -272,10 +272,10 @@ const Content = ({ anime, itemFilter }) => {
                                                                 </>
                                                         ) : (
                                                                 <>
-                                                                        { itemFilter.length !== 0 && itemFilter.length !== undefined ? (
+                                                                        { (itemFilter.length !== 0 && itemFilter.length !== undefined) || typeof itemFilter.judul === 'string' ? (
                                                                                 <>
                                                                                         { anime
-                                                                                        .filter( (item) => {item.judul.toLowerCase() === itemFilter.judul.toLowerCase() && (item.genre).includes(genreChoice)})
+                                                                                        .filter( (item) => { return item.judul.toLowerCase() === itemFilter.judul.toLowerCase() && (item.genre).includes(genreChoice)})
                                                                                         .map( (item) => (
                                                                                                 templateCardAnime(item)
                                                                                         )) }
@@ -293,10 +293,10 @@ const Content = ({ anime, itemFilter }) => {
                                                 </>
                                         ) : (
                                                 <>
-                                                        { itemFilter.length !== 0 && itemFilter.length !== undefined ? (
+                                                        { (itemFilter.length !== 0 && itemFilter.length !== undefined) || typeof itemFilter.judul === 'string' ? (
                                                                 <>
                                                                         { anime
-                                                                        .filter( (item) => {item.judul.toLowerCase() === itemFilter.judul.toLowerCase(); console.log(item.judul.toLowerCase())})
+                                                                        .filter( (item) => {return item.judul.toLowerCase() === itemFilter.judul.toLowerCase()})
                                                                         .map( (item) => (
                                                                                 templateCardAnime(item)
                                                                         )) }
