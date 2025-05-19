@@ -157,7 +157,7 @@ const Content = ({ anime, itemFilter }) => {
           </span>
           <span className="flex items-center gap-1 ms-auto">
             <i className="fas fa-star text-yellow-300"></i>{" "}
-            {selectedAnime.rating}/5
+            {selectedAnime.rating || 0}/5
           </span>
         </div>
         <div className="mt-5">
