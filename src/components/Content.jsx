@@ -130,6 +130,47 @@ const Content = ({ anime, itemFilter }) => {
     }
   };
 
+  const parseComment = (text) => {
+    const urlRegex = /((https?:\/\/)?[\w-]+(\.[\w-]+)+\.?(:\d+)?(\/\S*)?)/gi;
+    const matches = [...text.matchAll(urlRegex)];
+
+    if (matches.length === 0) return text;
+
+    const result = [];
+    let lastIndex = 0;
+
+    for (const match of matches) {
+      const url = match[0];
+      const start = match.index;
+
+      if (start > lastIndex) {
+        result.push(text.slice(lastIndex, start));
+      }
+
+      const href = url.startsWith("http") ? url : `https://${url}`;
+
+      result.push(
+        <a
+          key={start}
+          href={href}
+          target="__blank"
+          rel="noopener noreferrer"
+          className="underline text-blue-600 dark:text-blue-300 hover:text-blue-800 dark:hover:text-blue-400"
+        >
+          {url}
+        </a>
+      )
+
+      lastIndex = start + url.length;
+    }
+
+    if (lastIndex < text.length) {
+      result.push(text.slice(lastIndex));
+    }
+
+    return result;
+  }
+
   const handleInputComment = (event) => {
     setNewComment(event.target.value);
     console.log(newComment);
@@ -232,7 +273,7 @@ const Content = ({ anime, itemFilter }) => {
                           </button>
                         )}
                       </p>
-                      <p className="mt-2"> {komen.komen} </p>
+                      <p className="mt-2"> {parseComment(komen.komen)} </p>
                       <p className="flex items-center gap-1 mt-2 !text-[.7rem]">
                         <i className="fa fa-clock"></i> {komen.waktu}
                       </p>
